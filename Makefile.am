@@ -60,9 +60,10 @@ pkgconfig_DATA = libsecp256k1.pc
 
 
 
+SGX_SDK = /home/rahul/linux-sgx/linux/installer/bin/sgxsdk
 
 libsecp256k1_la_SOURCES = src/secp256k1.c
-libsecp256k1_la_CPPFLAGS = -DSECP256K1_BUILD -I$(top_srcdir)/include -I$(top_srcdir)/src $(SECP_INCLUDES) 
+libsecp256k1_la_CPPFLAGS = -DSECP256K1_BUILD -I$(top_srcdir)/include -I$(top_srcdir)/src $(SECP_INCLUDES) -I$(SGX_SDK)/include   
 libsecp256k1_la_LIBADD =  $(SECP_LIBS) $(COMMON_LIB)
 
 
@@ -70,7 +71,7 @@ libsecp256k1_la_LIBADD =  $(SECP_LIBS) $(COMMON_LIB)
 
 if USE_ECMULT_STATIC_PRECOMPUTATION
 CPPFLAGS_FOR_BUILD +=-I$(top_srcdir)
-CFLAGS_FOR_BUILD +=  -fvisibility=hidden -fpie -fstack-protector
+CFLAGS_FOR_BUILD +=  -m64  -Wall -Wextra -Wno-unused-function -fvisibility=hidden -fpie -fstack-protector
 
 gen_context_OBJECTS = gen_context.o
 gen_context_BIN = gen_context$(BUILD_EXEEXT)
